@@ -18,6 +18,9 @@ def template(contents, content):
                 {contents}
             </ol>
             {content}
+            <ul>
+                <li><a href="/create/">create</a></li>
+            </ul>
         </body>
         </html>
     '''
@@ -32,6 +35,17 @@ def getContents():
 @app.route('/')
 def index():
     return template(getContents(), '<h2>Welcome</h2>Hello, WEB')
+
+@app.route('/create/')
+def create():
+    content = '''
+        <form action="/create/" method="POST">
+            <p><input type="text" name="title" placeholder="TITLE"></p>
+            <p><textarea name="body" placeholder="BODY"></textarea></p>
+            <p><input type="submit" value="create"></p>
+        </form>
+    '''
+    return template(getContents(), content)
 
 @app.route('/read/<int:id>/')
 def read(id):
